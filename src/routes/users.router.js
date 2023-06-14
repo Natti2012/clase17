@@ -10,18 +10,18 @@ usersRouter.get('/', async (req, res) => {
     const { page, limit } = req.query;
   try {
     const dataUsers = await Service.getAll(page, limit);
-    console.log(dataUsers);
+   //  console.log(dataUsers);
     return res.status(200).json({
       status: 'success',
      payload: dataUsers.docs,
-     totalPAges:dataUsers.totalPages,
+     totalPages:dataUsers.totalPages,
      prevPages:dataUsers.prevPage,
      nextPages:dataUsers.nextPage,
      page:dataUsers.page,
      hasPrevPage:dataUsers. hasPrevPage,
      hasNextPage:dataUsers.hasNextPage,
-     prevLink:dataUsers.hasNextPage?`http://localhost:3000/dataUsers/?page=${dataUsers.nextPage} ` : null,
-     nextLink:dataUsers.hasNextPage?`http://localhost:3000/dataUsers/?page=${dataUsers.nextPage} `: null,
+     prevLink:dataUsers.hasPrevPage?`http://localhost:8080/dataUsers/?page=${dataUsers.prevPage} ` : null,
+     nextLink:dataUsers.hasNextPage?`http://localhost:8080/dataUsers/?page=${dataUsers.nextPage} `: null,
 
 
     });

@@ -8,10 +8,10 @@ import { usersRouter } from './routes/users.router.js';
 import { __dirname} from './utils.js';
 import { connectMongo } from './DAO/db.js';
 
+connectMongo();
 
 const app = express();
 const port = 8080;
-connectMongo();
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
   });

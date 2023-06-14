@@ -10,7 +10,6 @@ export class UserService {
   async getAll( page, limit ) {
     
     const users = await UserModel.paginate({}, { limit:limit || 5, page: page || 1 });
-    console.log(users)
     return users;
   }
   async getById(_id) {
