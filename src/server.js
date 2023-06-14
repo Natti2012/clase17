@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import handlebars from 'express-handlebars';
 
-import { UserModel } from './DAO/models/users.model.js';
+
 import { usersViewRouter } from './routes/users.view.js';
 import { usersRouter } from './routes/users.router.js';
 import { __dirname} from './utils.js';
@@ -10,7 +10,7 @@ import { connectMongo } from './DAO/db.js';
 
 
 const app = express();
-const port = 3000;
+const port = 8080;
 connectMongo();
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);

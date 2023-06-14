@@ -13,10 +13,13 @@ export class UserService {
     console.log(users)
     return users;
   }
-
-  async createOne(firstName, lastName, email) {
-    this.validateUser(firstName, lastName, email);
-    const userCreated = await UserModel.create({ firstName, lastName, email });
+  async getById(_id) {
+    const user = await UserModel.findOne({ _id: _id });
+    return user;
+  }
+  async createOne(firstName, lastName, email ,group ,grade ,gender) {
+    this.validateUser(firstName, lastName, email, group ,grade ,gender);
+    const userCreated = await UserModel.create({ firstName, lastName, email, group ,grade ,gender});
     return userCreated;
   }
 
@@ -25,10 +28,10 @@ export class UserService {
     return deleted;
   }
 
-  async updateOne(_id, firstName, lastName, email) {
+  async updateOne(_id, firstName, lastName, email, group ,grade ,gender) {
     if (!_id) throw new Error('invalid _id');
-    this.validateUser(firstName, lastName, email);
-    const userUptaded = await UserModel.updateOne({ _id: id }, { firstName, lastName, email });
+    this.validateUser(firstName, lastName, email, group ,grade ,gender);
+    const userUptaded = await UserModel.updateOne({ _id: _id }, { firstName, lastName, email, group ,grade ,gender });
     return userUptaded;
   }
 }

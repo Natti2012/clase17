@@ -34,11 +34,35 @@ usersRouter.get('/', async (req, res) => {
     });
   }
 });
+usersRouter.get('/:id', async (req, res) => {
 
+try {
+  const { id } = req.params;
+ const user= await   Service.getById(id)
+return user? 
+ res.status(200).json({
+    status: 'success',
+    msg: 'user deleted',
+    data: user,
+  }):
+   res.status(200).json({
+    status: 'error',
+    msg: 'user not found',                                                             
+    data: user,
+  })
+} catch (e) {
+  console.log(e);
+  return res.status(500).json({
+    status: 'error',
+    msg: 'something went wrong :(',
+    data: {},
+  });
+}
+})
 usersRouter.post('/', async (req, res) => {
   try {
-    const { firstName, lastName, email } = req.body;
-    const userCreated = await Service.createOne(firstName, lastName, email);
+    const { firstName, lastName, email, gender, grade, group } = req.body;
+    const userCreated = await Service.createOne(firstName, lastName, email,  gender, grade, group);
     return res.status(201).json({
       status: 'success',
       msg: 'user created',
@@ -57,8 +81,7 @@ usersRouter.post('/', async (req, res) => {
 usersRouter.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-
-    //TODO LLAMAR A OTA FUNCION
+    await Service.deletedOne(id)
     return res.status(200).json({
       status: 'success',
       msg: 'user deleted',
@@ -77,13 +100,13 @@ usersRouter.delete('/:id', async (req, res) => {
 usersRouter.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, email } = req.body;
+    const {firstName, lastName, email,  gender, grade, group } = req.body;
 
-    //TODO LLAMAR A OTRA FUNCION
+    await Service.updateOne(id,firstName, lastName, email,  gender, grade, group)
     return res.status(201).json({
       status: 'success',
       msg: 'user uptaded',
-      data: { _id: id, firstName, lastName, email },
+      data: {firstName, lastName, email, group ,grade ,gender},
     });
   } catch (e) {
     console.log(e);
